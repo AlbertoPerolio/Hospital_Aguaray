@@ -1,0 +1,744 @@
+/* =====================================================
+   CONTENEDOR PRINCIPAL
+===================================================== */
+
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+    background:
+        linear-gradient(135deg,
+            #eef2f7,
+            #f7f9fc);
+}
+
+/* =====================================================
+   SIDEBAR
+===================================================== */
+
+.dashboard-sidebar {
+    width: 270px;
+
+    background:
+        linear-gradient(180deg,
+            #1e293b,
+            #111827);
+
+    color: white;
+
+    padding: 30px 20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    box-shadow:
+        4px 0 25px rgba(0, 0, 0, 0.08);
+}
+
+/* =====================================================
+   USER INFO
+===================================================== */
+
+.sidebar-user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    text-align: center;
+}
+
+.user-avatar {
+    width: 75px;
+    height: 75px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(135deg,
+            #3498db,
+            #2563eb);
+
+    font-size: 2.5rem;
+
+    box-shadow:
+        0 10px 25px rgba(52, 152, 219, 0.35);
+}
+
+.sidebar-user-info h3 {
+    margin: 5px 0 0 0;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+/* =====================================================
+   BADGES
+===================================================== */
+
+.badge-role {
+    padding: 5px 12px;
+    border-radius: 30px;
+
+    font-size: 0.75rem;
+    font-weight: bold;
+
+    color: white;
+}
+
+.badge-role.role-3 {
+    background: #ef4444;
+}
+
+.badge-role.role-2 {
+    background: #f59e0b;
+}
+
+.badge-role.role-1 {
+    background: #10b981;
+}
+
+/* =====================================================
+   MENU
+===================================================== */
+
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.menu-btn {
+    border: none;
+
+    padding: 14px 16px;
+
+    border-radius: 14px;
+
+    background: transparent;
+
+    color: #dbe3ea;
+
+    font-size: 0.96rem;
+    font-weight: 600;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        color 0.2s ease;
+}
+
+.menu-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateX(3px);
+}
+
+.menu-btn.active {
+    background:
+        linear-gradient(135deg,
+            #3498db,
+            #2563eb);
+
+    color: white;
+
+    box-shadow:
+        0 8px 18px rgba(52, 152, 219, 0.35);
+}
+
+/* =====================================================
+   CONTENIDO
+===================================================== */
+
+.dashboard-content {
+    flex: 1;
+
+    padding: 40px;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+/* =====================================================
+   CARD PRINCIPAL
+===================================================== */
+
+.profile-card-v2 {
+    width: 100%;
+    max-width: 750px;
+
+    background: white;
+
+    padding: 35px;
+
+    border-radius: 24px;
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.06);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.profile-card-v2:hover {
+
+    box-shadow:
+        0 20px 45px rgba(0, 0, 0, 0.08);
+}
+
+.profile-card-v2 h2 {
+    margin-top: 0;
+
+    color: #111;
+
+    font-size: 2rem;
+
+    border-bottom: 2px solid #edf2f7;
+
+    padding-bottom: 12px;
+}
+
+.profile-card-v2 h3 {
+    color: #666;
+    margin-top: 20px;
+}
+
+/* =====================================================
+   FORMULARIO
+===================================================== */
+
+.profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.form-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #555;
+}
+
+/* =====================================================
+   INPUTS
+===================================================== */
+
+.form-group input,
+.dashboard-search-input,
+.modal-form textarea {
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 13px 14px;
+
+    border-radius: 14px;
+    border: 1px solid #000000;
+
+    background: #010101;
+
+    font-size: 0.95rem;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.form-group input:focus,
+.dashboard-search-input:focus,
+.modal-form textarea:focus {
+    outline: none;
+
+    border-color: #3498db;
+
+    box-shadow:
+        0 0 0 4px rgba(52, 152, 219, 0.15);
+
+    background: rgba(52, 152, 219, 0.03);
+}
+
+/* =====================================================
+   BOTONES
+===================================================== */
+
+.btn-save-profile,
+.btn-add-product,
+.btn-submit-modal,
+.btn-promote,
+.btn-edit-prod {
+    border: none;
+
+    border-radius: 14px;
+
+    padding: 12px 18px;
+
+    color: rgb(12, 12, 12);
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        opacity 0.2s ease;
+}
+
+.btn-save-profile {
+    background:
+        linear-gradient(135deg,
+            #22c55e,
+            #16a34a);
+}
+
+.btn-add-product,
+.btn-promote {
+    background:
+        linear-gradient(135deg,
+            #3498db,
+            #2563eb);
+}
+
+.btn-edit-prod {
+    background:
+        linear-gradient(135deg,
+            #f59e0b,
+            #d97706);
+}
+
+.btn-submit-modal {
+    background:
+        linear-gradient(135deg,
+            #22c55e,
+            #16a34a);
+}
+
+.btn-save-profile:hover,
+.btn-add-product:hover,
+.btn-submit-modal:hover,
+.btn-promote:hover,
+.btn-edit-prod:hover,
+.btn-delete-prod:hover,
+.btn-demote:hover,
+.btn-cancel-modal:hover {
+    transform: scale(1.03);
+    opacity: 0.95;
+}
+
+/* =====================================================
+   BOTONES SECUNDARIOS
+===================================================== */
+
+.btn-delete-prod {
+    background:
+        linear-gradient(135deg,
+            #ef4444,
+            #dc2626);
+
+    color: rgb(2, 2, 2);
+
+    border: none;
+
+    padding: 10px 14px;
+
+    border-radius: 12px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.btn-demote,
+.btn-cancel-modal {
+    background: #94a3b8;
+
+    color: white;
+
+    border: none;
+
+    padding: 10px 14px;
+
+    border-radius: 12px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+/* =====================================================
+   TABLAS
+===================================================== */
+.wide-card {
+    max-width: 900px !important;
+}
+
+
+.table-responsive {
+    width: 100%;
+    overflow-y: visible;
+}
+
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    text-align: left;
+}
+
+.admin-table th,
+.admin-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #e1e8ed;
+    font-size: 0.95rem;
+}
+
+.admin-table th {
+    background-color: #f8f9fa;
+    color: #333;
+    font-weight: bold;
+}
+
+.admin-table tr:hover {
+    background: rgba(52, 152, 219, 0.03);
+}
+
+
+/* =====================================================
+   BADGES TABLA
+===================================================== */
+
+.table-role-badge {
+    padding: 5px 10px;
+    border-radius: 20px;
+
+    font-size: 0.75rem;
+    font-weight: bold;
+
+    color: white;
+}
+
+.table-role-badge.role-3 {
+    background: #ef4444;
+}
+
+.table-role-badge.role-2 {
+    background: #f59e0b;
+}
+
+.table-role-badge.role-1 {
+    background: #10b981;
+}
+
+/* =====================================================
+   IMÁGENES TABLA
+===================================================== */
+
+.table-product-img {
+    width: 50px;
+    height: 50px;
+
+    object-fit: cover;
+
+    border-radius: 12px;
+
+    border: 1px solid #e5e7eb;
+}
+
+.table-no-img {
+    width: 50px;
+    height: 50px;
+
+    border-radius: 12px;
+
+    background: #f1f5f9;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 1.2rem;
+}
+
+.actions-cell-gap {
+    display: flex;
+    gap: 10px;
+}
+
+/* =====================================================
+   HEADER BOTONES DERECHA (+ Publicar / + Nueva)
+===================================================== */
+
+.products-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.products-header h2 {
+    margin: 0;
+}
+
+.products-header>button {
+    margin-left: auto;
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+.search-bar-container {
+    margin-bottom: 22px;
+}
+
+.no-results-txt {
+    color: #ef4444;
+    margin-top: 15px;
+    font-style: italic;
+}
+
+/* =====================================================
+   MODAL
+===================================================== */
+
+
+
+
+
+.modal-content {
+    width: 100%;
+    max-width: 550px;
+
+    background: rgb(26, 26, 26);
+
+    padding: 32px;
+
+    border-radius: 24px;
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.18);
+
+    animation: modalFade 0.25s ease;
+}
+
+/* Caja del modal de direcciones (AddressBook) */
+.address-modal-card {
+    width: 100%;
+    max-width: 550px;
+
+    background: rgb(26, 26, 26);
+
+
+    padding: 32px;
+
+    border-radius: 24px;
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.18);
+
+    animation: modalFade 0.25s ease;
+}
+
+
+.modal-content h2,
+.address-modal-card h3 {
+    margin-top: 0;
+    color: #ffffff;
+}
+
+.modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.modal-form textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+/* =====================================================
+   TEXTOS
+===================================================== */
+
+.subtitle-admin,
+.placeholder-text,
+.txt-dim,
+.txt-protected {
+    color: #64748b;
+}
+
+.txt-success {
+    color: #16a34a;
+}
+
+.profile-divider {
+    border: none;
+    border-top: 1px solid #000000;
+}
+
+/* =====================================================
+   ANIMACIÓN
+===================================================== */
+
+@keyframes modalFade {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* =====================================================
+   DARK MODE
+===================================================== */
+
+@media (prefers-color-scheme: dark) {
+
+    body {
+        background: #0f1115;
+    }
+
+    .dashboard-container {
+        background:
+            linear-gradient(135deg,
+                #0f1115,
+                #161a22);
+    }
+
+    .dashboard-sidebar {
+        background:
+            linear-gradient(180deg,
+                #111827,
+                #0b1120);
+    }
+
+    .profile-card-v2,
+    .modal-content {
+        background: #1a1d24;
+        color: white;
+    }
+
+    .profile-card-v2 h2,
+    .modal-content h2,
+    .admin-table th {
+        color: white;
+    }
+
+    .form-group label,
+    .subtitle-admin,
+    .placeholder-text,
+    .txt-dim,
+    .txt-protected {
+        color: #b0b3b8;
+    }
+
+    .form-group input,
+    .dashboard-search-input,
+    .modal-form textarea {
+        background: #232833;
+        border-color: #333;
+        color: white;
+    }
+
+    .admin-table th {
+        background: #232833;
+    }
+
+    .admin-table td {
+        border-color: #2c3440;
+    }
+
+    .admin-table tr:hover {
+        background: rgba(255, 255, 255, 0.03);
+    }
+
+    .table-no-img {
+        background: #232833;
+    }
+
+    .profile-divider {
+        border-top: 1px solid #2c3440;
+    }
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 900px) {
+
+    .dashboard-container {
+        flex-direction: column;
+    }
+
+    .dashboard-sidebar {
+        width: 100%;
+        flex-direction: row;
+        overflow-x: auto;
+    }
+
+    .sidebar-menu {
+        flex-direction: row;
+    }
+
+    .dashboard-content {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 700px) {
+
+    .form-row {
+        flex-direction: column;
+    }
+
+    .profile-card-v2,
+    .modal-content {
+        padding: 24px 20px;
+    }
+
+    .admin-table th,
+    .admin-table td {
+        padding: 10px;
+        font-size: 0.85rem;
+    }
+
+    .actions-cell-gap {
+        flex-direction: column;
+    }
+}

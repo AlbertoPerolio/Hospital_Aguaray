@@ -1,0 +1,44 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Dark mode base (solo fondo general) */
+@media (prefers-color-scheme: dark) {
+    body {
+        background: #0f1115;
+    }
+}
+
+/* =====================================================
+   MODAL BASE (overlay + animación)
+   NOTA: las “cards” (modal-card / modal-content / address-modal-card)
+   quedan en sus CSS específicos.
+===================================================== */
+
+@keyframes modalFade {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 9999;
+
+    backdrop-filter: blur(5px);
+}

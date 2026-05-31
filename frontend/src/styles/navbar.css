@@ -1,0 +1,276 @@
+/* =====================================================
+   NAVBAR
+===================================================== */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 16px 34px;
+
+    background: rgba(255, 255, 255, 0.88);
+
+    backdrop-filter: blur(12px);
+
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+
+    box-shadow:
+        0 4px 20px rgba(0, 0, 0, 0.04);
+
+    position: sticky;
+    top: 0;
+
+    z-index: 1000;
+}
+
+/* =====================================================
+   BRAND
+===================================================== */
+
+.navbar-brand a {
+    text-decoration: none;
+
+    font-size: 1.6rem;
+    font-weight: 800;
+
+    color: #111827;
+
+    letter-spacing: -0.5px;
+
+    transition: opacity 0.2s ease;
+}
+
+.navbar-brand a:hover {
+    opacity: 0.8;
+}
+
+/* =====================================================
+   LINKS
+===================================================== */
+
+.navbar-links {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+
+.navbar-links a {
+    position: relative;
+
+    text-decoration: none;
+
+    color: #4b5563;
+
+    font-size: 0.97rem;
+    font-weight: 600;
+
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.navbar-links a:hover {
+    color: #2563eb;
+    transform: translateY(-1px);
+}
+
+/* Línea animada debajo */
+
+.navbar-links a::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: -5px;
+
+    width: 0%;
+    height: 2px;
+
+    background:
+        linear-gradient(135deg,
+            #2563eb,
+            #1d4ed8);
+
+    border-radius: 20px;
+
+    transition: width 0.25s ease;
+}
+
+.navbar-links a:hover::after {
+    width: 100%;
+}
+
+/* =====================================================
+   USER MENU
+===================================================== */
+
+.user-menu {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.welcome-text {
+    color: #374151;
+
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+/* =====================================================
+   BOTÓN LOGOUT
+===================================================== */
+
+.btn-logout {
+    border: none;
+
+    padding: 10px 16px;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(135deg,
+            #ef4444,
+            #dc2626);
+
+    color: white;
+
+    font-size: 14px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        opacity 0.2s ease;
+}
+
+.btn-logout:hover {
+    transform: scale(1.04);
+    opacity: 0.95;
+}
+
+/* =====================================================
+   AUTH LINKS
+===================================================== */
+
+.auth-links {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.link-login {
+    font-weight: 700;
+}
+
+/* =====================================================
+   BOTÓN REGISTER
+===================================================== */
+
+.btn-register {
+    padding: 10px 16px;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(135deg,
+            #2563eb,
+            #1d4ed8);
+
+    color: white !important;
+
+    font-weight: bold;
+
+    box-shadow:
+        0 8px 20px rgba(37, 99, 235, 0.25);
+
+    transition:
+        transform 0.2s ease,
+        opacity 0.2s ease;
+}
+
+.btn-register:hover {
+    transform: scale(1.04);
+    opacity: 0.95;
+}
+
+/* =====================================================
+   DARK MODE
+===================================================== */
+
+@media (prefers-color-scheme: dark) {
+
+    .navbar {
+        background: rgba(17, 24, 39, 0.88);
+
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+
+        box-shadow:
+            0 4px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .navbar-brand a {
+        color: white;
+    }
+
+    .navbar-links a {
+        color: #d1d5db;
+    }
+
+    .navbar-links a:hover {
+        color: #60a5fa;
+    }
+
+    .welcome-text {
+        color: #d1d5db;
+    }
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 850px) {
+
+    .navbar {
+        flex-direction: column;
+        gap: 18px;
+
+        padding: 18px 20px;
+    }
+
+    .navbar-links {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .user-menu,
+    .auth-links {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 500px) {
+
+    .navbar-brand a {
+        font-size: 1.35rem;
+    }
+
+    .navbar-links {
+        gap: 14px;
+    }
+
+    .navbar-links a {
+        font-size: 0.9rem;
+    }
+
+    .btn-register,
+    .btn-logout {
+        padding: 9px 14px;
+        font-size: 13px;
+    }
+}
