@@ -23,6 +23,11 @@ const presentialPatient = sequelize.define(
       allowNull: true,
       unique: true,
     },
+    telefono: {
+      // Teléfono en texto plano para poder mostrarlo en frontend (no es reversible desde hashes)
+      type: DataTypes.STRING(255),
+      allowNull: true,
+    },
     dni_sha256: {
       type: DataTypes.STRING(64),
       allowNull: true,

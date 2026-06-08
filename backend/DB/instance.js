@@ -12,6 +12,9 @@ const sequelize = new Sequelize(
     dialect: config.Base.dialect,
     logging: false,
     dialectOptions: {},
+
+    // Guardar timestamps con timezone Argentina (ART = UTC-3)
+    timezone: "America/Argentina/Buenos_Aires",
   },
 );
 

@@ -183,6 +183,7 @@ const DoctorChecklist = () => {
                   disabled={!capacity[doc.id_doctor]?.enabled}
                 />
               </td>
+
               <td className="text-center">
                 <button
                   onClick={() => handleDeleteDoctor(doc.id_doctor)}

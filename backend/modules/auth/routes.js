@@ -17,32 +17,42 @@ function getTokenFromHeader(req) {
 }
 
 // RUTA DE LOGIN
-router.post("/login", validateSchema(loginSchema), async (req, res) => {
-  try {
-    const token = await controller.login(req.body.user, req.body.password);
-    const decodedUser = jwt.verify(token, config.jwt.secret);
-    const isProduction = process.env.NODE_ENV === "production";
+import {
+  authLoginRateLimiter,
+  authResetPasswordRateLimiter,
+} from "../../src/middleware/rateLimit.middleware.js";
 
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: isProduction,
-      sameSite: isProduction ? "none" : "lax",
-      maxAge: 24 * 60 * 60 * 1000, // 1 día
-    });
+router.post(
+  "/login",
+  authLoginRateLimiter,
+  validateSchema(loginSchema),
+  async (req, res) => {
+    try {
+      const token = await controller.login(req.body.user, req.body.password);
+      const decodedUser = jwt.verify(token, config.jwt.secret);
+      const isProduction = process.env.NODE_ENV === "production";
 
-    // Solo enviar el usuario decodificado
-    res.json({
-      error: false,
-      body: { mensaje: "Login exitoso" },
-      user: decodedUser,
-    });
-  } catch (err) {
-    return res.status(err.statusCode || 500).json({
-      error: true,
-      body: { mensaje: err.message },
-    });
-  }
-});
+      res.cookie("token", token, {
+        httpOnly: true,
+        secure: isProduction,
+        sameSite: isProduction ? "none" : "lax",
+        maxAge: 24 * 60 * 60 * 1000, // 1 día
+      });
+
+      // Solo enviar el usuario decodificado
+      res.json({
+        error: false,
+        body: { mensaje: "Login exitoso" },
+        user: decodedUser,
+      });
+    } catch (err) {
+      return res.status(err.statusCode || 500).json({
+        error: true,
+        body: { mensaje: err.message },
+      });
+    }
+  },
+);
 router.post(
   "/reset-password",
   validateSchema(resetPasswordSchema),

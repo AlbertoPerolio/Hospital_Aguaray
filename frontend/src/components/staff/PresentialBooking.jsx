@@ -47,21 +47,40 @@ const PresentialBooking = () => {
       nombre: p.name || p.first_name || "",
       apellido: p.surname || p.last_name || "",
       nacionalidad: p.nacionalidad || "",
-      telefono: p.telefono || "", // Por seguridad el hash no se descarga, se pide confirmar
+      telefono: p.telefono || p.phone || "",
     });
     setResults([]);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Restricciones: DNI, Nombre, Apellido, Nacionalidad obligatorios
+    const dni = form.dni?.trim();
+    const nombre = form.nombre?.trim();
+    const apellido = form.apellido?.trim();
+    const nacionalidad = form.nacionalidad?.trim();
+
+    if (!dni || !nombre || !apellido || !nacionalidad) {
+      alert("Faltan datos obligatorios: DNI, nombre, apellido y nacionalidad.");
+      return;
+    }
+
     try {
+      // 1) guardar/actualizar registro presencial
       const resPatient = await API.post("/patient/upsert", form);
       const patientId = resPatient.data.body.id_patient_record;
 
+      // 2) pedir turno presencial automáticamente
+      // Para pedir el turno necesitamos doctor y fecha.
+      // Este componente no los muestra; por eso guardamos el paciente y te quedás en este flujo.
+      // 2) pedir turno presencial automáticamente
+      // Acá no contamos con doctor/date, así que movemos el paciente listo a Turn.jsx.
+      // Guardamos el patientId en localStorage para que Turn.jsx lo use al pedir el turno.
+      localStorage.setItem("pendingPresentialPatientId", String(patientId));
       alert(
-        `Paciente listo. Ahora se puede asignar a un turno con ID: ${patientId}`,
+        `Paciente listo (ID ${patientId}). Ahora elegí el doctor en la pantalla "Turnos" y pedí el turno.`,
       );
-      // Aquí seguiría la lógica de seleccionar doctor y POST /api/turn
     } catch (err) {
       alert("Error al procesar paciente");
     }
@@ -156,7 +175,11 @@ const PresentialBooking = () => {
         <div className="form-row">
           <div className="form-group">
             <label>DNI</label>
-            <input type="text" value={form.dni} readOnly />
+            <input
+              type="text"
+              value={form.dni}
+              onChange={(e) => setForm({ ...form, dni: e.target.value })}
+            />
           </div>
           <div className="form-group">
             <label>Nacionalidad</label>
@@ -169,6 +192,7 @@ const PresentialBooking = () => {
             />
           </div>
         </div>
+
         <div className="form-group">
           <label>Teléfono</label>
           <input

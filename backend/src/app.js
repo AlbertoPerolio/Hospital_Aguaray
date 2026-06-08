@@ -19,6 +19,12 @@ import patientRoutes from "../modules/patient/routes.js";
 // imp errors
 import errors from "../errors/errors.js";
 
+// rate limiters
+import {
+  turnRateLimiter,
+  turnConfirmRateLimiter,
+} from "./middleware/rateLimit.middleware.js";
+
 // sequelize
 import { connect } from "../DB/sequelize.js";
 await connect();

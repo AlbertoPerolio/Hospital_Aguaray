@@ -47,6 +47,9 @@ export default function patientController() {
       createdBy: createdBy || null,
       dni_sha256,
       telefono_sha256,
+      // Guardamos el teléfono en texto para poder mostrarlo en UI.
+      // Nota: esto no se puede derivar desde hashes.
+      telefono: telefono ? String(telefono).trim() : null,
     };
 
     if (dni) {

@@ -20,12 +20,37 @@ export default function Turn() {
 
   const [date, setDate] = useState(() => yyyyMmDd(new Date()));
 
+  const today = useMemo(() => yyyyMmDd(new Date()), []);
+
+  useEffect(() => {
+    if (user?.id_role === ROLES.USER) {
+      setDate(today);
+    }
+  }, [user, today]);
+
   const [doctorsAvailable, setDoctorsAvailable] = useState([]);
   const [loadingDoctors, setLoadingDoctors] = useState(false);
 
   const [idDoctorSelected, setIdDoctorSelected] = useState("");
   const [loadingRequest, setLoadingRequest] = useState(false);
   const [message, setMessage] = useState({ type: "", text: "" });
+
+  // Si venís de "Turno Presencial" (PresentialBooking), guardamos el paciente pendiente en localStorage.
+  // Acá lo usamos para solicitar el turno presencial (id_patient_record) sin que el secretario vuelva a elegirlo.
+  const [pendingPresentialPatientId] = useState(() => {
+    try {
+      return localStorage.getItem("pendingPresentialPatientId");
+    } catch {
+      return null;
+    }
+  });
+
+  // Si venís de presencial, le armamos el request para usar id_patient_record en lugar de id_user.
+  const pendingPresentialPatientIdInt = useMemo(() => {
+    if (!pendingPresentialPatientId) return null;
+    const v = parseInt(pendingPresentialPatientId, 10);
+    return Number.isNaN(v) ? null : v;
+  }, [pendingPresentialPatientId]);
 
   // Mis turnos
   const [myTurns, setMyTurns] = useState([]);
@@ -108,10 +133,17 @@ export default function Turn() {
 
     setLoadingRequest(true);
     try {
-      const res = await API.post("/turn/", {
+      // Si venís de presencial, pedimos con id_patient_record.
+      const payload = {
         id_doctor: selectedDoctorId,
         date,
-      });
+      };
+
+      if (pendingPresentialPatientIdInt) {
+        payload.id_patient_record = pendingPresentialPatientIdInt;
+      }
+
+      const res = await API.post("/turn/", payload);
 
       setMessage({
         type: "success",
@@ -124,11 +156,15 @@ export default function Turn() {
       const txt =
         err.response?.data?.body?.message ||
         err.response?.data?.body?.error ||
+        err.response?.data?.message ||
         err.response?.data?.body ||
         "No se pudo solicitar el turno";
       setMessage({
         type: "error",
-        text: typeof txt === "string" ? txt : "No se pudo solicitar el turno",
+        text:
+          typeof txt === "string" && txt.trim()
+            ? txt
+            : "No se pudo solicitar el turno",
       });
     } finally {
       setLoadingRequest(false);
@@ -174,17 +210,22 @@ export default function Turn() {
         <div className="form-row" style={{ gap: 12, marginBottom: 12 }}>
           <div className="form-group" style={{ flex: 1 }}>
             <label>Fecha</label>
-            <input
-              type="date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-            />
+            {user?.id_role === ROLES.USER ? (
+              <div className="form-text">{date}</div>
+            ) : (
+              <input
+                type="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+              />
+            )}
           </div>
         </div>
 
         <form onSubmit={handleRequestTurn}>
           <div className="form-group">
             <label>Doctor disponible</label>
+
             <select
               value={idDoctorSelected}
               onChange={(e) => setIdDoctorSelected(e.target.value)}
@@ -208,7 +249,13 @@ export default function Turn() {
           <button
             className="btn-save-profile"
             type="submit"
-            disabled={loadingRequest}
+            disabled={
+              loadingRequest ||
+              (user?.id_role === ROLES.USER &&
+                myTurns.some(
+                  (t) => t.status === "PENDIENTE" || t.status === "CONFIRMADO",
+                ))
+            }
           >
             {loadingRequest ? "Solicitando..." : "Pedir turno"}
           </button>
