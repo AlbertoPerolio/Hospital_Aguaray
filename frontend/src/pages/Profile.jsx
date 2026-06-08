@@ -4,9 +4,9 @@ import API from "../api/axios";
 import "../styles/profile.css";
 import AddressBook from "../components/AddressBook";
 import UserAdminEditor from "../components/UserAdminEditor";
-import DoctorChecklist from "../components/Staff/DoctorChecklist";
-import TurnManagement from "../components/Staff/TurnManagement";
-import PresentialBooking from "../components/Staff/PresentialBooking";
+import DoctorChecklist from "../components/staff/DoctorChecklist";
+import TurnManagement from "../components/staff/TurnManagement";
+import PresentialBooking from "../components/staff/PresentialBooking";
 
 const ROLES = {
   USUARIO: 1,
